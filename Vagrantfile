@@ -64,4 +64,4 @@ Vagrant.configure("2") do |config|
         libvirt.memory = use_memory
       end
     end
-  end
+end
