@@ -2,7 +2,7 @@
 # vi: set ft=ruby :
 
 Vagrant.configure("2") do |config|
-    config.vm.synced_folder "./cyphonic", "/vagrant", type: "nfs", disabled: false
+    config.vm.synced_folder "./cyphonic", "/vagrant", disabled: false
     config.vm.boot_timeout = 600
   
     config.vm.define :as do |as|
@@ -11,6 +11,11 @@ Vagrant.configure("2") do |config|
       as.vm.box = "generic/ubuntu2010"
       as.vm.network :public_network,
               :ip => "10.0.1.221",
+              :bridge => "enp2s0",
+              :dev => "enp2s0"
+      as.vm.network :public_network,
+              :ip => 'fd00::f0',
+              :netmask => "8",
               :bridge => "enp2s0",
               :dev => "enp2s0"
     end
@@ -23,6 +28,11 @@ Vagrant.configure("2") do |config|
               :ip => "10.0.1.222",
               :bridge => "enp2s0",
               :dev => "enp2s0"
+      nms.vm.network :public_network,
+              :ip => 'fd00::f1',
+              :netmask => "8",
+              :bridge => "enp2s0",
+              :dev => "enp2s0"
     end
   
     config.vm.define :trs do |trs|
@@ -31,6 +41,11 @@ Vagrant.configure("2") do |config|
       trs.vm.box = "generic/ubuntu2010"
       trs.vm.network :public_network,
               :ip => "10.0.1.223",
+              :bridge => "enp2s0",
+              :dev => "enp2s0"
+      trs.vm.network :public_network,
+              :ip => 'fd00::f2',
+              :netmask => "8",
               :bridge => "enp2s0",
               :dev => "enp2s0"
     end
