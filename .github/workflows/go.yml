@@ -1,0 +1,64 @@
+name: Go
+
+on:
+  push:
+    branches:
+      - "main"
+      - "develop"
+    paths:
+      - "**.go"
+      - "**.mod"
+      - "**.sum"
+  pull_request:
+    branches:
+      - "main"
+      - "develop"
+      - "feature/**"
+      - "hotfix/**"
+    paths:
+      - "**.go"
+      - "**.mod"
+      - "**.sum"
+
+jobs:
+  test:
+    name: Test
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Set up Go 1.18
+        uses: actions/setup-go@v3
+        with:
+          go-version: 1.18
+        id: go
+
+      - name: Check out code into the Go module directory
+        uses: actions/checkout@v3
+
+      - name: Test code
+        run: |
+          cd asd
+          go test -v ./...
+          cd ../nmsd
+          go test -v ./...
+          cd ../trsd
+          go test -v ./...
+          cd ../noded
+          go test -v ./...
+
+  build:
+    name: Build
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Set up Go 1.18
+        uses: actions/setup-go@v3
+        with:
+          go-version: 1.18
+        id: go
+
+      - name: Check out code into the Go module directory
+        uses: actions/checkout@v3
+
+      - name: Build
+        run: |
+          cd tests
+          go build -v ./cmd/main.go
